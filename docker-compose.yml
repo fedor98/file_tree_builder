@@ -1,12 +1,16 @@
 services:
   filetree:
     build: .
+    # image: ghcr.io/fedor98/file_tree_builder:latest
     environment:
       - FOLDER=/data
-      # Directly list private file names as a comma-separated string.
-      # For example, to treat a.py and secret.py as private:
-      - PRIVATE_LIST=a.py,secret.py
+      # List private files (content will be hidden).
+      - PRIVATE_LIST=output.txt
+      # Files in these folders will have their content replaced with a placeholder.
+      - EXCLUDE_FOLDERS=.github,.git
+      # Folders in this list will not appear in the file tree output.
+      - HIDE_FOLDERS=.git,.github
       - OUTPUT=/data/output.txt
     volumes:
       # Mount the host directory (e.g., "./data") to the container.
-      - ./data:/data
+      - .:/data
