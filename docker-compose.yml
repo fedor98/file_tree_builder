@@ -1,0 +1,12 @@
+services:
+  filetree:
+    build: .
+    environment:
+      - FOLDER=/data
+      # Directly list private file names as a comma-separated string.
+      # For example, to treat a.py and secret.py as private:
+      - PRIVATE_LIST=a.py,secret.py
+      - OUTPUT=/data/output.txt
+    volumes:
+      # Mount the host directory (e.g., "./data") to the container.
+      - ./data:/data
